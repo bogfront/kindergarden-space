@@ -70,33 +70,16 @@
     transform: translateX(-100%);
   }
 
-  /* ── Two-column layout ── */
-  .slide-row {
+  /* ── GIF slide ── */
+  .slide-gif {
     display: flex;
-    gap: 28px;
-    align-items: stretch;
-    justify-content: center;
-    width: 100%;
-    max-width: 1200px;
-    flex: 1;
-    min-height: 0;
-  }
-  .slide-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 0;
-    text-align: center;
   }
-
-  /* ── GIF slot ── */
   .gif-slot {
-    flex-shrink: 0;
     width: 400px;
     height: 600px;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     border: 2px dashed rgba(255,255,255,0.2);
     background: rgba(255,255,255,0.03);
@@ -107,11 +90,10 @@
   }
   .gif-slot::before {
     content: 'GIF';
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 900;
     opacity: 0.15;
-    letter-spacing: 6px;
-    pointer-events: none;
+    letter-spacing: 8px;
   }
   .gif-slot img {
     position: absolute;
@@ -120,11 +102,9 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 18px;
+    border-radius: 22px;
   }
-  .gif-slot img[src=""] {
-    display: none;
-  }
+  .gif-slot img[src=""] { display: none; }
 
   /* ── Typography ── */
   .slide-title {
@@ -133,7 +113,6 @@
     line-height: 1.1;
     margin-bottom: 16px;
     text-shadow: 0 0 30px currentColor;
-    flex-shrink: 0;
   }
   .slide-body {
     font-size: clamp(1.1rem, 2.2vw, 1.7rem);
@@ -141,9 +120,7 @@
     line-height: 1.5;
     max-width: 900px;
   }
-  .highlight {
-    display: inline-block;
-  }
+  .highlight { display: inline-block; }
   .big-number {
     font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 900;
@@ -172,7 +149,7 @@
     font-weight: 400;
   }
 
-  /* ── Illustrated panels ── */
+  /* ── Panels ── */
   .panels {
     display: flex;
     gap: 16px;
@@ -190,22 +167,9 @@
     backdrop-filter: blur(8px);
     border: 1.5px solid rgba(255,255,255,0.15);
   }
-  .panel-icon {
-    font-size: 2.4rem;
-    margin-bottom: 8px;
-    display: block;
-  }
-  .panel-label {
-    font-size: clamp(0.9rem, 1.6vw, 1.2rem);
-    font-weight: 800;
-    margin-bottom: 4px;
-  }
-  .panel-desc {
-    font-size: clamp(0.8rem, 1.2vw, 1rem);
-    font-weight: 600;
-    opacity: 0.85;
-    line-height: 1.4;
-  }
+  .panel-icon { font-size: 2.4rem; margin-bottom: 8px; display: block; }
+  .panel-label { font-size: clamp(0.9rem, 1.6vw, 1.2rem); font-weight: 800; margin-bottom: 4px; }
+  .panel-desc { font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 600; opacity: 0.85; line-height: 1.4; }
 
   /* ── SVG Rocket ── */
   .rocket-wrap {
@@ -264,11 +228,7 @@
   }
 
   /* ── Speed viz ── */
-  .speed-bar-wrap {
-    width: 100%;
-    max-width: 600px;
-    margin: 14px auto;
-  }
+  .speed-bar-wrap { width: 100%; max-width: 600px; margin: 14px auto; }
   .speed-bar-track {
     background: rgba(255,255,255,0.1);
     border-radius: 100px;
@@ -287,7 +247,6 @@
     font-size: 0.95rem;
     white-space: nowrap;
     animation: growBar 1s ease forwards;
-    transform-origin: left;
   }
   @keyframes growBar { from { width: 0; } }
   .speed-label {
@@ -322,11 +281,7 @@
     align-items: center;
     gap: 14px;
   }
-  #dots {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
+  #dots { display: flex; gap: 8px; align-items: center; }
   .dot {
     width: 10px; height: 10px;
     border-radius: 50%;
@@ -335,10 +290,7 @@
     transition: background 0.2s, transform 0.2s;
     border: none;
   }
-  .dot.active {
-    background: white;
-    transform: scale(1.4);
-  }
+  .dot.active { background: white; transform: scale(1.4); }
 
   /* ── Slide number ── */
   #slide-counter {
@@ -351,7 +303,7 @@
     opacity: 0.4;
   }
 
-  /* ── Gradient backgrounds per slide ── */
+  /* ── Backgrounds ── */
   .bg-title   { background: radial-gradient(ellipse at 50% 20%, #1a1050 0%, #050a1a 70%); }
   .bg-what    { background: radial-gradient(ellipse at 30% 60%, #0d2040 0%, #050a1a 70%); }
   .bg-stages  { background: radial-gradient(ellipse at 70% 40%, #100a30 0%, #05081a 70%); }
@@ -364,8 +316,7 @@
 
   @media (max-width: 700px) {
     .slide { padding: 56px 16px 24px; }
-    .slide-row { flex-direction: column; }
-    .gif-slot { width: 100%; height: 160px; min-height: unset; }
+    .gif-slot { width: min(90vw, 400px); height: min(70vh, 600px); }
     .poem-card { padding: 14px 18px; }
     .panels { gap: 10px; }
     .panel { padding: 12px 14px; min-width: 130px; }
@@ -381,321 +332,317 @@
   <!-- 0: Заголовок + стих -->
   <div class="slide bg-title active" id="s0">
     <div class="slide-title" style="color:#FFD93D;">🚀 Про ракеты</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <svg class="rocket-wrap" width="80" height="120" viewBox="0 0 90 140">
-          <ellipse cx="45" cy="55" rx="22" ry="40" fill="#E8EAF6"/>
-          <polygon points="45,5 23,45 67,45" fill="#FF6B35"/>
-          <rect x="18" y="70" width="54" height="30" rx="8" fill="#C5CAE9"/>
-          <rect x="23" y="75" width="44" height="20" rx="6" fill="#7986CB"/>
-          <circle cx="45" cy="85" r="10" fill="#4FC3F7"/>
-          <circle cx="45" cy="85" r="6" fill="#81D4FA"/>
-          <polygon points="10,75 23,70 23,100" fill="#FF6B35"/>
-          <polygon points="80,75 67,70 67,100" fill="#FF6B35"/>
-          <ellipse cx="45" cy="100" rx="12" ry="5" fill="#9FA8DA"/>
-          <g class="flame">
-            <ellipse cx="45" cy="112" rx="8" ry="14" fill="#FF6B35" opacity="0.9"/>
-            <ellipse cx="45" cy="115" rx="5" ry="10" fill="#FFD93D" opacity="0.95"/>
-            <ellipse cx="45" cy="118" rx="3" ry="7" fill="white" opacity="0.8"/>
-          </g>
-        </svg>
-        <div class="poem-card">
-          Мы с друзьями во дворе<br>
-          Строили ракету.<br>
-          Только топлива у нас,<br>
-          К сожаленью, нету.<br><br>
-          Не смогли мы полететь<br>
-          К Марсу и Венере.<br>
-          Но у нас всё впереди —<br>
-          В это твёрдо верю!
-          <div class="poem-author">— Н. Мигунова</div>
-        </div>
-      </div>
+    <svg class="rocket-wrap" width="80" height="120" viewBox="0 0 90 140">
+      <ellipse cx="45" cy="55" rx="22" ry="40" fill="#E8EAF6"/>
+      <polygon points="45,5 23,45 67,45" fill="#FF6B35"/>
+      <rect x="18" y="70" width="54" height="30" rx="8" fill="#C5CAE9"/>
+      <rect x="23" y="75" width="44" height="20" rx="6" fill="#7986CB"/>
+      <circle cx="45" cy="85" r="10" fill="#4FC3F7"/>
+      <circle cx="45" cy="85" r="6" fill="#81D4FA"/>
+      <polygon points="10,75 23,70 23,100" fill="#FF6B35"/>
+      <polygon points="80,75 67,70 67,100" fill="#FF6B35"/>
+      <ellipse cx="45" cy="100" rx="12" ry="5" fill="#9FA8DA"/>
+      <g class="flame">
+        <ellipse cx="45" cy="112" rx="8" ry="14" fill="#FF6B35" opacity="0.9"/>
+        <ellipse cx="45" cy="115" rx="5" ry="10" fill="#FFD93D" opacity="0.95"/>
+        <ellipse cx="45" cy="118" rx="3" ry="7" fill="white" opacity="0.8"/>
+      </g>
+    </svg>
+    <div class="poem-card">
+      Мы с друзьями во дворе<br>
+      Строили ракету.<br>
+      Только топлива у нас,<br>
+      К сожаленью, нету.<br><br>
+      Не смогли мы полететь<br>
+      К Марсу и Венере.<br>
+      Но у нас всё впереди —<br>
+      В это твёрдо верю!
+      <div class="poem-author">— Н. Мигунова</div>
     </div>
   </div>
 
   <!-- 1: Что такое ракета -->
   <div class="slide bg-what" id="s1">
     <div class="slide-title" style="color:#4ECDC4;">🌍 Что такое ракета?</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body" style="max-width:700px;">
-          Ракета — это <span class="highlight" style="color:#FFD93D;">очень быстрая машина</span>,<br>
-          которая умеет летать в <span class="highlight" style="color:#4ECDC4;">космос</span>!
-        </div>
-        <div class="panels">
-          <div class="panel">
-            <span class="panel-icon">✈️</span>
-            <div class="panel-label" style="color:#4ECDC4;">Самолёт</div>
-            <div class="panel-desc">Летает в небе, дышит воздухом</div>
-          </div>
-          <div class="panel" style="border-color:rgba(255,215,61,0.5); background:rgba(255,215,61,0.08);">
-            <span class="panel-icon">🚀</span>
-            <div class="panel-label" style="color:#FFD93D;">Ракета</div>
-            <div class="panel-desc">Летит в космос, там нет воздуха — ей он не нужен!</div>
-          </div>
-          <div class="panel">
-            <span class="panel-icon">🛸</span>
-            <div class="panel-label" style="color:#A855F7;">Космос</div>
-            <div class="panel-desc">Там звёзды, планеты и невесомость!</div>
-          </div>
-        </div>
-        <div class="slide-body" style="margin-top:16px; font-size:clamp(0.95rem,1.8vw,1.4rem); opacity:0.8;">
-          Ракета летит, как <strong>воздушный шарик</strong>:<br>
-          сзади вылетает огонь — и она мчится вперёд! 💨
-        </div>
-      </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+    <div class="slide-body" style="max-width:700px;">
+      Ракета — это <span class="highlight" style="color:#FFD93D;">очень быстрая машина</span>,<br>
+      которая умеет летать в <span class="highlight" style="color:#4ECDC4;">космос</span>!
     </div>
+    <div class="panels">
+      <div class="panel">
+        <span class="panel-icon">✈️</span>
+        <div class="panel-label" style="color:#4ECDC4;">Самолёт</div>
+        <div class="panel-desc">Летает в небе, дышит воздухом</div>
+      </div>
+      <div class="panel" style="border-color:rgba(255,215,61,0.5); background:rgba(255,215,61,0.08);">
+        <span class="panel-icon">🚀</span>
+        <div class="panel-label" style="color:#FFD93D;">Ракета</div>
+        <div class="panel-desc">Летит в космос, там нет воздуха — ей он не нужен!</div>
+      </div>
+      <div class="panel">
+        <span class="panel-icon">🛸</span>
+        <div class="panel-label" style="color:#A855F7;">Космос</div>
+        <div class="panel-desc">Там звёзды, планеты и невесомость!</div>
+      </div>
+    </div>
+    <div class="slide-body" style="margin-top:16px; font-size:clamp(0.95rem,1.8vw,1.4rem); opacity:0.8;">
+      Ракета летит, как <strong>воздушный шарик</strong>:<br>
+      сзади вылетает огонь — и она мчится вперёд! 💨
+    </div>
+  </div>
+
+  <!-- GIF: Что такое ракета -->
+  <div class="slide slide-gif bg-what" id="s1g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 2: Ступени -->
   <div class="slide bg-stages" id="s2">
     <div class="slide-title" style="color:#A855F7;">🔧 Ступени ракеты</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body">
-          Ракета состоит из <span class="highlight" style="color:#A855F7;">нескольких частей — ступеней</span>.<br>
-          Каждая ступень — это бак с топливом и двигатель.
-        </div>
-        <div class="stages-wrap">
-          <div class="stage-block">
-            <div class="stage-rect" style="width:80px; height:90px; background:linear-gradient(180deg,#E8EAF6,#9FA8DA); flex-direction:column; padding:8px; justify-content:flex-start;">
-              <div style="font-size:0.7rem; font-weight:800; color:#37474F;">ГОЛОВА</div>
-              <div style="font-size:1.5rem;">👨‍🚀</div>
-            </div>
-            <div class="stage-label" style="color:#B0BEC5;">Кабина<br>космонавтов</div>
-          </div>
-          <div style="width:4px; height:70px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
-          <div class="stage-block">
-            <div class="stage-rect" style="width:90px; height:120px; background:linear-gradient(180deg,#7986CB,#3F51B5);">
-              <div style="writing-mode:vertical-rl; font-size:0.8rem; color:white;">2-я СТУПЕНЬ</div>
-            </div>
-            <div class="stage-label" style="color:#7986CB;">Вторая<br>ступень</div>
-          </div>
-          <div style="width:4px; height:70px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
-          <div class="stage-block">
-            <div class="stage-rect" style="width:110px; height:160px; background:linear-gradient(180deg,#FF6B35,#E53935);">
-              <div style="writing-mode:vertical-rl; font-size:0.8rem; color:white;">1-я СТУПЕНЬ</div>
-            </div>
-            <div class="stage-label" style="color:#FF6B35;">Первая ступень<br>(самая большая!)</div>
-          </div>
-        </div>
-        <div class="slide-body" style="font-size:clamp(0.9rem,1.6vw,1.3rem); opacity:0.85;">
-          Сначала летит <span style="color:#FF6B35; font-weight:900;">первая ступень</span> — она заканчивается и <strong>отпадает</strong>.<br>
-          Потом — <span style="color:#7986CB; font-weight:900;">вторая</span>! Ракета становится легче и летит быстрее! 🎉
-        </div>
-      </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+    <div class="slide-body">
+      Ракета состоит из <span class="highlight" style="color:#A855F7;">нескольких частей — ступеней</span>.<br>
+      Каждая ступень — это бак с топливом и двигатель.
     </div>
+    <div class="stages-wrap">
+      <div class="stage-block">
+        <div class="stage-rect" style="width:80px; height:90px; background:linear-gradient(180deg,#E8EAF6,#9FA8DA); flex-direction:column; padding:8px; justify-content:flex-start;">
+          <div style="font-size:0.7rem; font-weight:800; color:#37474F;">ГОЛОВА</div>
+          <div style="font-size:1.5rem;">👨‍🚀</div>
+        </div>
+        <div class="stage-label" style="color:#B0BEC5;">Кабина<br>космонавтов</div>
+      </div>
+      <div style="width:4px; height:70px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
+      <div class="stage-block">
+        <div class="stage-rect" style="width:90px; height:120px; background:linear-gradient(180deg,#7986CB,#3F51B5);">
+          <div style="writing-mode:vertical-rl; font-size:0.8rem; color:white;">2-я СТУПЕНЬ</div>
+        </div>
+        <div class="stage-label" style="color:#7986CB;">Вторая<br>ступень</div>
+      </div>
+      <div style="width:4px; height:70px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
+      <div class="stage-block">
+        <div class="stage-rect" style="width:110px; height:160px; background:linear-gradient(180deg,#FF6B35,#E53935);">
+          <div style="writing-mode:vertical-rl; font-size:0.8rem; color:white;">1-я СТУПЕНЬ</div>
+        </div>
+        <div class="stage-label" style="color:#FF6B35;">Первая ступень<br>(самая большая!)</div>
+      </div>
+    </div>
+    <div class="slide-body" style="font-size:clamp(0.9rem,1.6vw,1.3rem); opacity:0.85;">
+      Сначала летит <span style="color:#FF6B35; font-weight:900;">первая ступень</span> — она заканчивается и <strong>отпадает</strong>.<br>
+      Потом — <span style="color:#7986CB; font-weight:900;">вторая</span>! Ракета становится легче и летит быстрее! 🎉
+    </div>
+  </div>
+
+  <!-- GIF: Ступени -->
+  <div class="slide slide-gif bg-stages" id="s2g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 3: Топливо -->
   <div class="slide bg-fuel" id="s3">
     <div class="slide-title" style="color:#FF6B35;">⛽ Топливо</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body">
-          Топливо — это <span class="highlight" style="color:#FF6B35;">«еда» для ракеты</span>.<br>
-          Оно горит и создаёт <strong>огненную струю</strong> сзади!
-        </div>
-        <div class="panels">
-          <div class="panel">
-            <span class="panel-icon">🚗</span>
-            <div class="panel-label" style="color:#FFD93D;">Машина</div>
-            <div class="panel-desc">Ест бензин</div>
-          </div>
-          <div class="panel" style="border-color:rgba(255,107,53,0.5); background:rgba(255,107,53,0.08);">
-            <span class="panel-icon">🚀</span>
-            <div class="panel-label" style="color:#FF6B35;">Ракета</div>
-            <div class="panel-desc">Ест специальное жидкое топливо и <strong>жидкий кислород</strong></div>
-          </div>
-          <div class="panel">
-            <span class="panel-icon">🎈</span>
-            <div class="panel-label" style="color:#4ECDC4;">Принцип</div>
-            <div class="panel-desc">Как шарик: газ вылетает назад — шарик летит вперёд!</div>
-          </div>
-        </div>
-        <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem);">
-          Ракета везёт с собой <span style="color:#4ECDC4; font-weight:900;">огромные баки с топливом</span>.<br>
-          Оно занимает <span style="color:#FFD93D; font-weight:900;">90% от всей ракеты</span>! 🛢️
-        </div>
-      </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+    <div class="slide-body">
+      Топливо — это <span class="highlight" style="color:#FF6B35;">«еда» для ракеты</span>.<br>
+      Оно горит и создаёт <strong>огненную струю</strong> сзади!
     </div>
+    <div class="panels">
+      <div class="panel">
+        <span class="panel-icon">🚗</span>
+        <div class="panel-label" style="color:#FFD93D;">Машина</div>
+        <div class="panel-desc">Ест бензин</div>
+      </div>
+      <div class="panel" style="border-color:rgba(255,107,53,0.5); background:rgba(255,107,53,0.08);">
+        <span class="panel-icon">🚀</span>
+        <div class="panel-label" style="color:#FF6B35;">Ракета</div>
+        <div class="panel-desc">Ест специальное жидкое топливо и <strong>жидкий кислород</strong></div>
+      </div>
+      <div class="panel">
+        <span class="panel-icon">🎈</span>
+        <div class="panel-label" style="color:#4ECDC4;">Принцип</div>
+        <div class="panel-desc">Как шарик: газ вылетает назад — шарик летит вперёд!</div>
+      </div>
+    </div>
+    <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem);">
+      Ракета везёт с собой <span style="color:#4ECDC4; font-weight:900;">огромные баки с топливом</span>.<br>
+      Оно занимает <span style="color:#FFD93D; font-weight:900;">90% от всей ракеты</span>! 🛢️
+    </div>
+  </div>
+
+  <!-- GIF: Топливо -->
+  <div class="slide slide-gif bg-fuel" id="s3g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 4: Первая космическая скорость -->
   <div class="slide bg-v1" id="s4">
     <div class="slide-title" style="color:#4ECDC4;">🌐 Первая космическая скорость</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body">
-          Чтобы <span class="highlight" style="color:#4ECDC4;">летать вокруг Земли</span> (как спутник),<br>
-          нужно разогнаться до невероятной скорости!
-        </div>
-        <div style="margin:16px auto 4px;">
-          <span class="big-number" style="color:#4ECDC4;">8 км/с</span>
-          <div style="font-size:clamp(0.9rem,1.8vw,1.3rem); font-weight:700; opacity:0.75; margin-top:4px;">= 28 800 км/ч</div>
-        </div>
-        <div class="speed-bar-wrap">
-          <div class="speed-bar-track">
-            <div class="speed-bar-fill" style="width:40%; background:linear-gradient(90deg,#1565C0,#4ECDC4);">🚀 8 км/с</div>
-          </div>
-          <div class="speed-label">
-            <span>Пешком 0.005 км/с</span>
-            <span>Самолёт 0.25 км/с</span>
-            <span>🚀 8 км/с</span>
-          </div>
-        </div>
-        <div class="panels">
-          <div class="panel">
-            <span class="panel-icon">🐾</span>
-            <div class="panel-label">Человек</div>
-            <div class="panel-desc">~5 км/ч</div>
-          </div>
-          <div class="panel">
-            <span class="panel-icon">✈️</span>
-            <div class="panel-label">Самолёт</div>
-            <div class="panel-desc">~900 км/ч</div>
-          </div>
-          <div class="panel" style="border-color:rgba(78,205,196,0.5); background:rgba(78,205,196,0.08);">
-            <span class="panel-icon">🛰️</span>
-            <div class="panel-label" style="color:#4ECDC4;">Спутник</div>
-            <div class="panel-desc" style="color:#4ECDC4;"><strong>28 800 км/ч!</strong></div>
-          </div>
-        </div>
-      </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+    <div class="slide-body">
+      Чтобы <span class="highlight" style="color:#4ECDC4;">летать вокруг Земли</span> (как спутник),<br>
+      нужно разогнаться до невероятной скорости!
     </div>
+    <div style="margin:16px auto 4px;">
+      <span class="big-number" style="color:#4ECDC4;">8 км/с</span>
+      <div style="font-size:clamp(0.9rem,1.8vw,1.3rem); font-weight:700; opacity:0.75; margin-top:4px;">= 28 800 км/ч</div>
+    </div>
+    <div class="speed-bar-wrap">
+      <div class="speed-bar-track">
+        <div class="speed-bar-fill" style="width:40%; background:linear-gradient(90deg,#1565C0,#4ECDC4);">🚀 8 км/с</div>
+      </div>
+      <div class="speed-label">
+        <span>Пешком 0.005 км/с</span>
+        <span>Самолёт 0.25 км/с</span>
+        <span>🚀 8 км/с</span>
+      </div>
+    </div>
+    <div class="panels">
+      <div class="panel">
+        <span class="panel-icon">🐾</span>
+        <div class="panel-label">Человек</div>
+        <div class="panel-desc">~5 км/ч</div>
+      </div>
+      <div class="panel">
+        <span class="panel-icon">✈️</span>
+        <div class="panel-label">Самолёт</div>
+        <div class="panel-desc">~900 км/ч</div>
+      </div>
+      <div class="panel" style="border-color:rgba(78,205,196,0.5); background:rgba(78,205,196,0.08);">
+        <span class="panel-icon">🛰️</span>
+        <div class="panel-label" style="color:#4ECDC4;">Спутник</div>
+        <div class="panel-desc" style="color:#4ECDC4;"><strong>28 800 км/ч!</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIF: Первая космическая -->
+  <div class="slide slide-gif bg-v1" id="s4g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 5: Вторая космическая скорость -->
   <div class="slide bg-v2" id="s5">
     <div class="slide-title" style="color:#A855F7;">🪐 Вторая космическая скорость</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body">
-          Чтобы <span class="highlight" style="color:#A855F7;">совсем улететь от Земли</span><br>
-          и отправиться к другим планетам —<br>
-          нужно ещё быстрее!
-        </div>
-        <div style="margin:18px auto 6px; display:flex; gap:36px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
-          <div style="text-align:center;">
-            <div style="font-size:clamp(1.4rem,3.5vw,2.6rem); font-weight:900; color:#4ECDC4;">8 км/с</div>
-            <div style="font-size:0.85rem; font-weight:700; opacity:0.6; margin-top:4px;">Лететь<br>вокруг Земли</div>
-          </div>
-          <div style="font-size:1.8rem; align-self:center;">➡️</div>
-          <div style="text-align:center;">
-            <span class="big-number" style="color:#A855F7;">11 км/с</span>
-            <div style="font-size:0.85rem; font-weight:700; opacity:0.6; margin-top:4px;">Улететь<br>от Земли!</div>
-          </div>
-        </div>
-        <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem);">
-          Представь: Земля тебя «держит» как магнит.<br>
-          Чтобы вырваться — нужна <span style="color:#A855F7; font-weight:900;">скорость 40 000 км/ч!</span> 🪐✨
-        </div>
-        <div class="panels">
-          <div class="panel" style="border-color:rgba(78,205,196,0.4);">
-            <span class="panel-icon">🌍➡️🌍</span>
-            <div class="panel-label" style="color:#4ECDC4;">8 км/с</div>
-            <div class="panel-desc">Орбита Земли<br>(МКС, спутники)</div>
-          </div>
-          <div class="panel" style="border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.08);">
-            <span class="panel-icon">🚀🪐</span>
-            <div class="panel-label" style="color:#A855F7;">11 км/с</div>
-            <div class="panel-desc">К Луне, Марсу<br>и другим планетам!</div>
-          </div>
-        </div>
-      </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+    <div class="slide-body">
+      Чтобы <span class="highlight" style="color:#A855F7;">совсем улететь от Земли</span><br>
+      и отправиться к другим планетам —<br>
+      нужно ещё быстрее!
     </div>
+    <div style="margin:18px auto 6px; display:flex; gap:36px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-size:clamp(1.4rem,3.5vw,2.6rem); font-weight:900; color:#4ECDC4;">8 км/с</div>
+        <div style="font-size:0.85rem; font-weight:700; opacity:0.6; margin-top:4px;">Лететь<br>вокруг Земли</div>
+      </div>
+      <div style="font-size:1.8rem; align-self:center;">➡️</div>
+      <div style="text-align:center;">
+        <span class="big-number" style="color:#A855F7;">11 км/с</span>
+        <div style="font-size:0.85rem; font-weight:700; opacity:0.6; margin-top:4px;">Улететь<br>от Земли!</div>
+      </div>
+    </div>
+    <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem);">
+      Представь: Земля тебя «держит» как магнит.<br>
+      Чтобы вырваться — нужна <span style="color:#A855F7; font-weight:900;">скорость 40 000 км/ч!</span> 🪐✨
+    </div>
+    <div class="panels">
+      <div class="panel" style="border-color:rgba(78,205,196,0.4);">
+        <span class="panel-icon">🌍➡️🌍</span>
+        <div class="panel-label" style="color:#4ECDC4;">8 км/с</div>
+        <div class="panel-desc">Орбита Земли<br>(МКС, спутники)</div>
+      </div>
+      <div class="panel" style="border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.08);">
+        <span class="panel-icon">🚀🪐</span>
+        <div class="panel-label" style="color:#A855F7;">11 км/с</div>
+        <div class="panel-desc">К Луне, Марсу<br>и другим планетам!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIF: Вторая космическая -->
+  <div class="slide slide-gif bg-v2" id="s5g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 6: Управление -->
   <div class="slide bg-control" id="s6">
     <div class="slide-title" style="color:#6BCB77;">🕹️ Как управляется ракета?</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body">
-          У ракеты нет руля, как у машины.<br>
-          Она поворачивает <span class="highlight" style="color:#6BCB77;">сам двигатель</span> в нужную сторону!
+    <div class="slide-body">
+      У ракеты нет руля, как у машины.<br>
+      Она поворачивает <span class="highlight" style="color:#6BCB77;">сам двигатель</span> в нужную сторону!
+    </div>
+    <div style="margin:16px auto; display:flex; gap:24px; justify-content:center; align-items:center; flex-wrap:wrap;">
+      <svg width="120" height="160" viewBox="0 0 140 180">
+        <rect x="45" y="20" width="50" height="90" rx="10" fill="#7986CB"/>
+        <polygon points="70,0 45,25 95,25" fill="#E53935"/>
+        <g class="nozzle-diagram" style="transform-origin:70px 110px;">
+          <rect x="58" y="108" width="24" height="32" rx="6" fill="#455A64"/>
+          <polygon points="54,138 86,138 80,155 60,155" fill="#37474F"/>
+          <ellipse cx="70" cy="160" rx="9" ry="14" fill="#FF6B35" opacity="0.9"/>
+          <ellipse cx="70" cy="163" rx="6" ry="10" fill="#FFD93D"/>
+        </g>
+        <text x="10" y="155" font-size="22" fill="#6BCB77" opacity="0.8">↙️</text>
+        <text x="104" y="155" font-size="22" fill="#FF6B35" opacity="0.8">↘️</text>
+      </svg>
+      <div class="panels" style="flex-direction:column; gap:10px; margin-top:0;">
+        <div class="panel" style="text-align:left; max-width:none; padding:12px 16px;">
+          <span class="panel-icon" style="font-size:1.8rem;">↙️</span>
+          <div class="panel-label" style="color:#6BCB77;">Двигатель влево</div>
+          <div class="panel-desc">→ ракета летит вправо</div>
         </div>
-        <div style="margin:16px auto; display:flex; gap:24px; justify-content:center; align-items:center; flex-wrap:wrap;">
-          <svg width="120" height="160" viewBox="0 0 140 180">
-            <rect x="45" y="20" width="50" height="90" rx="10" fill="#7986CB"/>
-            <polygon points="70,0 45,25 95,25" fill="#E53935"/>
-            <g class="nozzle-diagram" style="transform-origin:70px 110px;">
-              <rect x="58" y="108" width="24" height="32" rx="6" fill="#455A64"/>
-              <polygon points="54,138 86,138 80,155 60,155" fill="#37474F"/>
-              <ellipse cx="70" cy="160" rx="9" ry="14" fill="#FF6B35" opacity="0.9"/>
-              <ellipse cx="70" cy="163" rx="6" ry="10" fill="#FFD93D"/>
-            </g>
-            <text x="10" y="155" font-size="22" fill="#6BCB77" opacity="0.8">↙️</text>
-            <text x="104" y="155" font-size="22" fill="#FF6B35" opacity="0.8">↘️</text>
-          </svg>
-          <div class="panels" style="flex-direction:column; gap:10px; margin-top:0;">
-            <div class="panel" style="text-align:left; max-width:none; padding:12px 16px;">
-              <span class="panel-icon" style="font-size:1.8rem;">↙️</span>
-              <div class="panel-label" style="color:#6BCB77;">Двигатель влево</div>
-              <div class="panel-desc">→ ракета летит вправо</div>
-            </div>
-            <div class="panel" style="text-align:left; max-width:none; padding:12px 16px;">
-              <span class="panel-icon" style="font-size:1.8rem;">↘️</span>
-              <div class="panel-label" style="color:#FF6B35;">Двигатель вправо</div>
-              <div class="panel-desc">→ ракета летит влево</div>
-            </div>
-            <div class="panel" style="text-align:left; max-width:none; padding:12px 16px;">
-              <span class="panel-icon" style="font-size:1.8rem;">🖥️</span>
-              <div class="panel-label" style="color:#FFD93D;">Компьютер</div>
-              <div class="panel-desc">Управляет всем автоматически!</div>
-            </div>
-          </div>
+        <div class="panel" style="text-align:left; max-width:none; padding:12px 16px;">
+          <span class="panel-icon" style="font-size:1.8rem;">↘️</span>
+          <div class="panel-label" style="color:#FF6B35;">Двигатель вправо</div>
+          <div class="panel-desc">→ ракета летит влево</div>
+        </div>
+        <div class="panel" style="text-align:left; max-width:none; padding:12px 16px;">
+          <span class="panel-icon" style="font-size:1.8rem;">🖥️</span>
+          <div class="panel-label" style="color:#FFD93D;">Компьютер</div>
+          <div class="panel-desc">Управляет всем автоматически!</div>
         </div>
       </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
     </div>
+  </div>
+
+  <!-- GIF: Управление -->
+  <div class="slide slide-gif bg-control" id="s6g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 7: Приземление -->
   <div class="slide bg-land" id="s7">
     <div class="slide-title" style="color:#FFD93D;">🎯 Как приземляется ракета?</div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body">
-          Есть <span class="highlight" style="color:#FFD93D;">несколько способов</span> вернуться домой!
-        </div>
-        <div class="panels" style="margin-top:14px;">
-          <div class="panel" style="border-color:rgba(255,217,61,0.4); background:rgba(255,217,61,0.06);">
-            <span class="panel-icon">🪂</span>
-            <div class="panel-label" style="color:#FFD93D;">Парашют</div>
-            <div class="panel-desc">
-              Капсула раскрывает парашют и мягко спускается!<br><br>
-              Так возвращались <strong>советские космонавты</strong>! 🇷🇺
-            </div>
-          </div>
-          <div class="panel" style="border-color:rgba(255,107,53,0.4); background:rgba(255,107,53,0.06);">
-            <span class="panel-icon">🦵</span>
-            <div class="panel-label" style="color:#FF6B35;">На ногах</div>
-            <div class="panel-desc">
-              Ступень включает двигатели и садится на ножки!<br><br>
-              Так делает <strong>Falcon 9</strong> от SpaceX! 🤩
-            </div>
-          </div>
-          <div class="panel" style="border-color:rgba(78,205,196,0.4); background:rgba(78,205,196,0.06);">
-            <span class="panel-icon">✈️</span>
-            <div class="panel-label" style="color:#4ECDC4;">Как самолёт</div>
-            <div class="panel-desc">
-              Шаттл планировал и садился на взлётно-посадочную полосу!
-            </div>
-          </div>
-        </div>
-        <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem); opacity:0.8;">
-          Главное — вернуть космонавтов <strong>живыми и здоровыми!</strong> ❤️
+    <div class="slide-body">
+      Есть <span class="highlight" style="color:#FFD93D;">несколько способов</span> вернуться домой!
+    </div>
+    <div class="panels" style="margin-top:14px;">
+      <div class="panel" style="border-color:rgba(255,217,61,0.4); background:rgba(255,217,61,0.06);">
+        <span class="panel-icon">🪂</span>
+        <div class="panel-label" style="color:#FFD93D;">Парашют</div>
+        <div class="panel-desc">
+          Капсула раскрывает парашют и мягко спускается!<br><br>
+          Так возвращались <strong>советские космонавты</strong>! 🇷🇺
         </div>
       </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+      <div class="panel" style="border-color:rgba(255,107,53,0.4); background:rgba(255,107,53,0.06);">
+        <span class="panel-icon">🦵</span>
+        <div class="panel-label" style="color:#FF6B35;">На ногах</div>
+        <div class="panel-desc">
+          Ступень включает двигатели и садится на ножки!<br><br>
+          Так делает <strong>Falcon 9</strong> от SpaceX! 🤩
+        </div>
+      </div>
+      <div class="panel" style="border-color:rgba(78,205,196,0.4); background:rgba(78,205,196,0.06);">
+        <span class="panel-icon">✈️</span>
+        <div class="panel-label" style="color:#4ECDC4;">Как самолёт</div>
+        <div class="panel-desc">
+          Шаттл планировал и садился на взлётно-посадочную полосу!
+        </div>
+      </div>
     </div>
+    <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem); opacity:0.8;">
+      Главное — вернуть космонавтов <strong>живыми и здоровыми!</strong> ❤️
+    </div>
+  </div>
+
+  <!-- GIF: Приземление -->
+  <div class="slide slide-gif bg-land" id="s7g">
+    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 8: Конец -->
@@ -703,50 +650,42 @@
     <div class="slide-title" style="color:#FFD93D; font-size:clamp(2rem,5vw,4rem);">
       🚀 Вы — будущие космонавты!
     </div>
-    <div class="slide-row">
-      <div class="slide-main">
-        <div class="slide-body" style="opacity:0.9; margin-bottom:12px;">Сегодня вы узнали:</div>
-        <div class="panels" style="flex-wrap:wrap; max-width:700px;">
-          <div class="panel" style="flex:1; min-width:110px; padding:12px;">
-            <span class="panel-icon" style="font-size:1.8rem;">🔧</span>
-            <div class="panel-label" style="font-size:0.85rem;">Ступени</div>
-          </div>
-          <div class="panel" style="flex:1; min-width:110px; padding:12px;">
-            <span class="panel-icon" style="font-size:1.8rem;">⛽</span>
-            <div class="panel-label" style="font-size:0.85rem;">Топливо</div>
-          </div>
-          <div class="panel" style="flex:1; min-width:110px; padding:12px;">
-            <span class="panel-icon" style="font-size:1.8rem;">🌐</span>
-            <div class="panel-label" style="font-size:0.85rem;">1-я скорость</div>
-          </div>
-          <div class="panel" style="flex:1; min-width:110px; padding:12px;">
-            <span class="panel-icon" style="font-size:1.8rem;">🪐</span>
-            <div class="panel-label" style="font-size:0.85rem;">2-я скорость</div>
-          </div>
-          <div class="panel" style="flex:1; min-width:110px; padding:12px;">
-            <span class="panel-icon" style="font-size:1.8rem;">🕹️</span>
-            <div class="panel-label" style="font-size:0.85rem;">Управление</div>
-          </div>
-          <div class="panel" style="flex:1; min-width:110px; padding:12px;">
-            <span class="panel-icon" style="font-size:1.8rem;">🎯</span>
-            <div class="panel-label" style="font-size:0.85rem;">Приземление</div>
-          </div>
-        </div>
-        <div class="slide-title" style="color:#FF6B9D; font-size:clamp(1.6rem,3.5vw,2.8rem); margin-top:20px;">
-          До новых открытий! ⭐
-        </div>
+    <div class="slide-body" style="opacity:0.9; margin-bottom:12px;">Сегодня вы узнали:</div>
+    <div class="panels" style="flex-wrap:wrap; max-width:700px;">
+      <div class="panel" style="flex:1; min-width:110px; padding:12px;">
+        <span class="panel-icon" style="font-size:1.8rem;">🔧</span>
+        <div class="panel-label" style="font-size:0.85rem;">Ступени</div>
       </div>
-      <div class="gif-slot"><img src="" alt="гифка"></div>
+      <div class="panel" style="flex:1; min-width:110px; padding:12px;">
+        <span class="panel-icon" style="font-size:1.8rem;">⛽</span>
+        <div class="panel-label" style="font-size:0.85rem;">Топливо</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:110px; padding:12px;">
+        <span class="panel-icon" style="font-size:1.8rem;">🌐</span>
+        <div class="panel-label" style="font-size:0.85rem;">1-я скорость</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:110px; padding:12px;">
+        <span class="panel-icon" style="font-size:1.8rem;">🪐</span>
+        <div class="panel-label" style="font-size:0.85rem;">2-я скорость</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:110px; padding:12px;">
+        <span class="panel-icon" style="font-size:1.8rem;">🕹️</span>
+        <div class="panel-label" style="font-size:0.85rem;">Управление</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:110px; padding:12px;">
+        <span class="panel-icon" style="font-size:1.8rem;">🎯</span>
+        <div class="panel-label" style="font-size:0.85rem;">Приземление</div>
+      </div>
+    </div>
+    <div class="slide-title" style="color:#FF6B9D; font-size:clamp(1.6rem,3.5vw,2.8rem); margin-top:20px;">
+      До новых открытий! ⭐
     </div>
   </div>
 
 </div>
 
 <!-- Navigation -->
-<div id="nav">
-  <div id="dots"></div>
-</div>
-
+<div id="nav"><div id="dots"></div></div>
 <div id="slide-counter"></div>
 
 <script>
@@ -755,27 +694,18 @@
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
   let stars = [];
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   function initStars() {
     stars = [];
     for (let i = 0; i < 220; i++) {
       stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.8 + 0.3,
-        a: Math.random(),
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 1.8 + 0.3, a: Math.random(),
         da: (Math.random() * 0.008 + 0.002) * (Math.random() < 0.5 ? 1 : -1),
-        minA: Math.random() * 0.1,
-        maxA: Math.random() * 0.5 + 0.5,
+        minA: Math.random() * 0.1, maxA: Math.random() * 0.5 + 0.5,
       });
     }
   }
-
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     stars.forEach(s => {
@@ -788,11 +718,8 @@
     });
     requestAnimationFrame(draw);
   }
-
   window.addEventListener('resize', () => { resize(); initStars(); });
-  resize();
-  initStars();
-  draw();
+  resize(); initStars(); draw();
 })();
 
 // ── Slides ──
@@ -813,45 +740,34 @@ function buildDots() {
 }
 
 function updateDots() {
-  document.querySelectorAll('.dot').forEach((d, i) => {
-    d.classList.toggle('active', i === current);
-  });
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
   document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
 }
 
 function goTo(index) {
   if (animating || index === current || index < 0 || index >= total) return;
   animating = true;
-
   const from = slides[current];
   const to = slides[index];
   const dir = index > current ? 1 : -1;
-
   from.classList.remove('active');
   from.classList.add('exit');
   to.style.transform = `translateX(${dir * 100}%)`;
   to.style.opacity = '0';
   to.classList.add('active');
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      to.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1)';
-      to.style.transform = 'translateX(0)';
-      to.style.opacity = '1';
-    });
-  });
-
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    to.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+    to.style.transform = 'translateX(0)';
+    to.style.opacity = '1';
+  }));
   setTimeout(() => {
     from.classList.remove('exit');
-    from.style.transform = '';
-    from.style.opacity = '';
-    from.style.transition = '';
+    from.style.transform = from.style.opacity = from.style.transition = '';
     to.style.transition = '';
     current = index;
     animating = false;
     updateDots();
   }, 650);
-
   current = index;
   updateDots();
 }
@@ -861,19 +777,15 @@ function navigate(dir) {
   if (next >= 0 && next < total) goTo(next);
 }
 
-// Keyboard
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-    e.preventDefault(); navigate(1);
-  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-    e.preventDefault(); navigate(-1);
-  }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); navigate(1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navigate(-1); }
 });
 
 buildDots();
 updateDots();
 
-// Animate speed bars when slide becomes active
+// Animate speed bars
 const observer = new MutationObserver(mutations => {
   mutations.forEach(m => {
     if (m.target.classList.contains('active')) {
@@ -888,7 +800,6 @@ const observer = new MutationObserver(mutations => {
     }
   });
 });
-
 slides.forEach(s => observer.observe(s, { attributes: true, attributeFilter: ['class'] }));
 </script>
 </body>
