@@ -167,7 +167,7 @@
     backdrop-filter: blur(8px);
     border: 1.5px solid rgba(255,255,255,0.15);
   }
-  .panel-icon { font-size: 2.4rem; margin-bottom: 8px; display: block; }
+  .panel-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; padding: 0 12px; }
   .panel-label { font-size: clamp(0.9rem, 1.6vw, 1.2rem); font-weight: 800; margin-bottom: 4px; }
   .panel-desc { font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 600; opacity: 0.85; line-height: 1.4; }
 
@@ -192,20 +192,24 @@
   /* ── Stage diagram ── */
   .stages-wrap {
     display: flex;
-    align-items: flex-end;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: center;
-    gap: 8px;
+    gap: 16px;
     margin: 16px auto;
   }
-  .stage-block {
+  .rocket-body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    width: 250px;
+    gap: 0;
+  }
+  .rocket-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
   .stage-rect {
-    border-radius: 12px 12px 4px 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,13 +222,11 @@
   .stage-label {
     font-size: clamp(0.75rem, 1.3vw, 1rem);
     font-weight: 800;
-    text-align: center;
-    width: 250px;
-    height: 42px;
+    text-align: left;
     line-height: 1.3;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 4px;
   }
 
   /* ── Speed viz ── */
@@ -393,7 +395,7 @@
 
   <!-- GIF: Что такое ракета -->
   <div class="slide slide-gif bg-what" id="s1g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
+    <div class="gif-slot" style="width: 1200px; height: 600px"><img src="slide-2.gif" alt="гифка"></div>
   </div>
 
   <!-- 2: Ступени -->
@@ -404,37 +406,49 @@
       Каждая ступень — это бак с топливом и двигатель.
     </div>
     <div class="stages-wrap">
-      <div class="stage-block">
-        <div class="stage-rect" style="width:80px; height:90px; background:linear-gradient(180deg,#E8EAF6,#9FA8DA); flex-direction:column; padding:8px; justify-content:flex-start;">
-          <div style="font-size:0.7rem; font-weight:800; color:#37474F;">ГОЛОВА</div>
-          <div style="font-size:1.5rem;">👨‍🚀</div>
+      <div class="rocket-body">
+        <!-- Носовой конус -->
+        <div style="width:0; height:0; border-left:40px solid transparent; border-right:40px solid transparent; border-bottom:40px solid #FFD93D;"></div>
+        <!-- Кабина -->
+        <div class="stage-rect" style="width:80px; height:60px; background:linear-gradient(180deg,#4ECDC4,#26A69A); border-radius:0; border-top:none; border-bottom:none; flex-direction:column; justify-content:center; gap:2px;">
+          <div style="font-size:1.4rem;">👨‍🚀</div>
         </div>
-        <div class="stage-label" style="color:#B0BEC5;">Кабина<br>космонавтов</div>
+        <!-- Вторая ступень -->
+        <div class="stage-rect" style="width:90px; height:110px; background:linear-gradient(180deg,#7986CB,#3F51B5); border-radius:0; border-top:none; border-bottom:none; align-self:center;">
+          <div style="font-size:0.75rem;">2-я</div>
+        </div>
+        <!-- Первая ступень -->
+        <div class="stage-rect" style="width:110px; height:140px; background:linear-gradient(180deg,#FF6B35,#E53935); border-radius:0 0 4px 4px; border-top:none; align-self:center;">
+          <div style="font-size:0.75rem;">1-я</div>
+        </div>
+        <!-- Сопло -->
+        <div style="width:60px; height:24px; background:linear-gradient(180deg,#B71C1C,#880000); clip-path:polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%); border-radius:0 0 8px 8px;"></div>
+        <!-- Пламя -->
+        <div style="font-size:2rem; line-height:1; margin-top:-4px;">🔥</div>
       </div>
-      <div style="width:4px; height:70px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
-      <div class="stage-block">
-        <div class="stage-rect" style="width:90px; height:120px; background:linear-gradient(180deg,#7986CB,#3F51B5);">
-          <div style="writing-mode:vertical-rl; font-size:0.8rem; color:white;">2-я СТУПЕНЬ</div>
+      <div class="rocket-labels">
+        <div class="stage-label" style="height:40px; color:#FFD93D; flex-direction:column; align-items:flex-start; justify-content:center; gap:1px;">
+          <div style="font-weight:900;">← Носовой конус</div>
+          <div style="font-size:0.7rem; opacity:0.75; font-weight:700;">защищает от воздуха</div>
         </div>
-        <div class="stage-label" style="color:#7986CB;">Вторая<br>ступень</div>
-      </div>
-      <div style="width:4px; height:70px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
-      <div class="stage-block">
-        <div class="stage-rect" style="width:110px; height:160px; background:linear-gradient(180deg,#FF6B35,#E53935);">
-          <div style="writing-mode:vertical-rl; font-size:0.8rem; color:white;">1-я СТУПЕНЬ</div>
+        <div class="stage-label" style="height:60px; color:#4ECDC4; flex-direction:column; align-items:flex-start; justify-content:center; gap:1px;">
+          <div style="font-weight:900;">← Кабина космонавтов</div>
+          <div style="font-size:0.7rem; opacity:0.75; font-weight:700;">здесь сидят космонавты</div>
         </div>
-        <div class="stage-label" style="color:#FF6B35;">Первая ступень<br>(самая большая!)</div>
+        <div class="stage-label" style="height:110px; color:#7986CB; flex-direction:column; align-items:flex-start; justify-content:center; gap:1px;">
+          <div style="font-weight:900;">← Вторая ступень</div>
+          <div style="font-size:0.7rem; opacity:0.75; font-weight:700;">разгоняет ракету в космосе</div>
+        </div>
+        <div class="stage-label" style="height:140px; color:#FF6B35; flex-direction:column; align-items:flex-start; justify-content:center; gap:1px;">
+          <div style="font-weight:900;">← Первая ступень</div>
+          <div style="font-size:0.7rem; opacity:0.75; font-weight:700;">отрывает ракету от Земли,<br>самая мощная!</div>
+        </div>
       </div>
     </div>
     <div class="slide-body" style="font-size:clamp(0.9rem,1.6vw,1.3rem); opacity:0.85;">
       Сначала летит <span style="color:#FF6B35; font-weight:900;">первая ступень</span> — она заканчивается и <strong>отпадает</strong>.<br>
       Потом — <span style="color:#7986CB; font-weight:900;">вторая</span>! Ракета становится легче и летит быстрее! 🎉
     </div>
-  </div>
-
-  <!-- GIF: Ступени -->
-  <div class="slide slide-gif bg-stages" id="s2g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 3: Топливо -->
@@ -465,11 +479,6 @@
       Ракета везёт с собой <span style="color:#4ECDC4; font-weight:900;">огромные баки с топливом</span>.<br>
       Оно занимает <span style="color:#FFD93D; font-weight:900;">90% от всей ракеты</span>! 🛢️
     </div>
-  </div>
-
-  <!-- GIF: Топливо -->
-  <div class="slide slide-gif bg-fuel" id="s3g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 4: Первая космическая скорость -->
@@ -512,11 +521,6 @@
     </div>
   </div>
 
-  <!-- GIF: Первая космическая -->
-  <div class="slide slide-gif bg-v1" id="s4g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
-  </div>
-
   <!-- 5: Вторая космическая скорость -->
   <div class="slide bg-v2" id="s5">
     <div class="slide-title" style="color:#A855F7;">🪐 Вторая космическая скорость</div>
@@ -542,21 +546,16 @@
     </div>
     <div class="panels">
       <div class="panel" style="border-color:rgba(78,205,196,0.4);">
-        <span class="panel-icon">🌍➡️🌍</span>
+        <span class="panel-icon">🌍&nbsp;➡️&nbsp;🌍</span>
         <div class="panel-label" style="color:#4ECDC4;">8 км/с</div>
         <div class="panel-desc">Орбита Земли<br>(МКС, спутники)</div>
       </div>
       <div class="panel" style="border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.08);">
-        <span class="panel-icon">🚀🪐</span>
+        <span class="panel-icon">🚀&nbsp;🪐</span>
         <div class="panel-label" style="color:#A855F7;">11 км/с</div>
         <div class="panel-desc">К Луне, Марсу<br>и другим планетам!</div>
       </div>
     </div>
-  </div>
-
-  <!-- GIF: Вторая космическая -->
-  <div class="slide slide-gif bg-v2" id="s5g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 6: Управление -->
@@ -599,11 +598,6 @@
     </div>
   </div>
 
-  <!-- GIF: Управление -->
-  <div class="slide slide-gif bg-control" id="s6g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
-  </div>
-
   <!-- 7: Приземление -->
   <div class="slide bg-land" id="s7">
     <div class="slide-title" style="color:#FFD93D;">🎯 Как приземляется ракета?</div>
@@ -638,11 +632,6 @@
     <div class="slide-body" style="margin-top:14px; font-size:clamp(0.95rem,1.8vw,1.4rem); opacity:0.8;">
       Главное — вернуть космонавтов <strong>живыми и здоровыми!</strong> ❤️
     </div>
-  </div>
-
-  <!-- GIF: Приземление -->
-  <div class="slide slide-gif bg-land" id="s7g">
-    <div class="gif-slot"><img src="" alt="гифка"></div>
   </div>
 
   <!-- 8: Конец -->
