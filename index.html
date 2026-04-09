@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Про ракеты 🚀</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --space: #0a0e1f;
+    --deep: #060912;
+    --star: #ffffff;
+    --yellow: #FFD93D;
+    --orange: #FF6B35;
+    --red: #FF3366;
+    --blue: #4ECDC4;
+    --purple: #A855F7;
+    --green: #6BCB77;
+    --pink: #FF6B9D;
+  }
+
+  body {
+    font-family: 'Nunito', 'Arial Rounded MT Bold', Arial, sans-serif;
+    background: var(--space);
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  }
+
+  /* ── Stars ── */
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--dur, 3s) infinite alternate ease-in-out;
+  }
+  @keyframes twinkle {
+    from { opacity: var(--min, 0.2); transform: scale(1); }
+    to   { opacity: var(--max, 1);   transform: scale(1.4); }
+  }
+
+  /* ── Slides container ── */
+  #slides {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 60px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    text-align: center;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .slide.exit {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  /* ── Typography ── */
+  .slide-title {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px currentColor;
+  }
+  .slide-body {
+    font-size: clamp(1.3rem, 2.8vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.5;
+    max-width: 900px;
+  }
+  .highlight {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 2px 12px;
+    backdrop-filter: blur(4px);
+  }
+  .big-number {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 0 40px currentColor;
+    display: block;
+  }
+
+  /* ── Poem card ── */
+  .poem-card {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 24px;
+    padding: 28px 40px;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.8;
+    max-width: 700px;
+    backdrop-filter: blur(10px);
+    margin: 20px auto;
+  }
+  .poem-author {
+    font-size: 1rem;
+    opacity: 0.6;
+    margin-top: 12px;
+    font-weight: 400;
+  }
+
+  /* ── Illustrated panels ── */
+  .panels {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .panel {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 22px 28px;
+    min-width: 180px;
+    max-width: 260px;
+    flex: 1;
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255,255,255,0.15);
+  }
+  .panel-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .panel-label {
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .panel-desc {
+    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+    font-weight: 600;
+    opacity: 0.85;
+    line-height: 1.4;
+  }
+
+  /* ── SVG Rocket ── */
+  .rocket-wrap {
+    animation: hover 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 20px rgba(255,200,100,0.5));
+  }
+  @keyframes hover {
+    0%, 100% { transform: translateY(0px) rotate(-2deg); }
+    50%       { transform: translateY(-18px) rotate(2deg); }
+  }
+  .flame {
+    animation: flicker 0.15s infinite alternate;
+    transform-origin: top center;
+  }
+  @keyframes flicker {
+    from { transform: scaleY(1) scaleX(1); opacity: 1; }
+    to   { transform: scaleY(0.8) scaleX(1.1); opacity: 0.8; }
+  }
+
+  /* ── Stage diagram ── */
+  .stages-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px auto;
+  }
+  .stage-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .stage-rect {
+    border-radius: 12px 12px 4px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    border: 3px solid rgba(255,255,255,0.3);
+  }
+  .stage-label {
+    font-size: clamp(0.75rem, 1.3vw, 1rem);
+    font-weight: 800;
+    text-align: center;
+    max-width: 100px;
+    line-height: 1.3;
+  }
+
+  /* ── Speed viz ── */
+  .speed-bar-wrap {
+    width: 100%;
+    max-width: 700px;
+    margin: 18px auto;
+  }
+  .speed-bar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 100px;
+    height: 36px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .speed-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 14px;
+    font-weight: 900;
+    font-size: 1rem;
+    white-space: nowrap;
+    animation: growBar 1s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes growBar {
+    from { width: 0; }
+  }
+  .speed-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    font-weight: 700;
+    opacity: 0.75;
+    margin-top: 6px;
+    padding: 0 4px;
+  }
+
+  /* ── Control diagram ── */
+  .nozzle-diagram {
+    animation: nozzleTilt 2s infinite ease-in-out;
+    transform-origin: top center;
+  }
+  @keyframes nozzleTilt {
+    0%, 100% { transform: rotate(0deg); }
+    40%       { transform: rotate(15deg); }
+    80%       { transform: rotate(-15deg); }
+  }
+
+  /* ── Landing ── */
+  .landing-rocket {
+    animation: land 2.5s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+  }
+  @keyframes land {
+    from { transform: translateY(-30px) scaleX(0.98); }
+    to   { transform: translateY(0px) scaleX(1); }
+  }
+
+  /* ── Navigation ── */
+  #nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .nav-btn {
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.25);
+    color: white;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.15s;
+    backdrop-filter: blur(8px);
+  }
+  .nav-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.1); }
+  .nav-btn:active { transform: scale(0.95); }
+
+  #dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+  }
+  .dot.active {
+    background: white;
+    transform: scale(1.4);
+  }
+
+  /* ── Slide number ── */
+  #slide-counter {
+    position: fixed;
+    top: 20px;
+    right: 28px;
+    z-index: 10;
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 0.4;
+  }
+
+  /* ── Gradient backgrounds per slide ── */
+  .bg-title   { background: radial-gradient(ellipse at 50% 20%, #1a1050 0%, #050a1a 70%); }
+  .bg-what    { background: radial-gradient(ellipse at 30% 60%, #0d2040 0%, #050a1a 70%); }
+  .bg-stages  { background: radial-gradient(ellipse at 70% 40%, #100a30 0%, #05081a 70%); }
+  .bg-fuel    { background: radial-gradient(ellipse at 40% 70%, #200a0a 0%, #080510 70%); }
+  .bg-v1      { background: radial-gradient(ellipse at 60% 30%, #0a1520 0%, #050a15 70%); }
+  .bg-v2      { background: radial-gradient(ellipse at 50% 50%, #150a25 0%, #080510 70%); }
+  .bg-control { background: radial-gradient(ellipse at 35% 65%, #0a1a10 0%, #050a0a 70%); }
+  .bg-land    { background: radial-gradient(ellipse at 55% 35%, #1a1000 0%, #0a0800 70%); }
+  .bg-end     { background: radial-gradient(ellipse at 50% 50%, #0a0520 0%, #050a15 70%); }
+
+  /* ── Particle burst ── */
+  .particle {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: burst 1s ease-out forwards;
+  }
+  @keyframes burst {
+    from { opacity: 1; transform: translate(0,0) scale(1); }
+    to   { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .slide { padding: 24px 20px; }
+    .poem-card { padding: 18px 20px; }
+    .panels { gap: 12px; }
+    .panel { padding: 14px 16px; min-width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div id="slides">
+
+  <!-- 0: Заголовок + стих -->
+  <div class="slide bg-title active" id="s0">
+    <div style="margin-bottom:16px;">
+      <svg class="rocket-wrap" width="90" height="140" viewBox="0 0 90 140">
+        <ellipse cx="45" cy="55" rx="22" ry="40" fill="#E8EAF6"/>
+        <polygon points="45,5 23,45 67,45" fill="#FF6B35"/>
+        <rect x="18" y="70" width="54" height="30" rx="8" fill="#C5CAE9"/>
+        <rect x="23" y="75" width="44" height="20" rx="6" fill="#7986CB"/>
+        <circle cx="45" cy="85" r="10" fill="#4FC3F7"/>
+        <circle cx="45" cy="85" r="6" fill="#81D4FA"/>
+        <polygon points="10,75 23,70 23,100" fill="#FF6B35"/>
+        <polygon points="80,75 67,70 67,100" fill="#FF6B35"/>
+        <ellipse cx="45" cy="100" rx="12" ry="5" fill="#9FA8DA"/>
+        <!-- flame -->
+        <g class="flame">
+          <ellipse cx="45" cy="112" rx="8" ry="14" fill="#FF6B35" opacity="0.9"/>
+          <ellipse cx="45" cy="115" rx="5" ry="10" fill="#FFD93D" opacity="0.95"/>
+          <ellipse cx="45" cy="118" rx="3" ry="7" fill="white" opacity="0.8"/>
+        </g>
+      </svg>
+    </div>
+    <div class="slide-title" style="color:#FFD93D;">🚀 Про ракеты</div>
+    <div class="poem-card">
+      Мы с друзьями во дворе<br>
+      Строили ракету.<br>
+      Только топлива у нас,<br>
+      К сожаленью, нету.<br><br>
+      Не смогли мы полететь<br>
+      К Марсу и Венере.<br>
+      Но у нас всё впереди —<br>
+      В это твёрдо верю!
+      <div class="poem-author">— Н. Мигунова</div>
+    </div>
+  </div>
+
+  <!-- 1: Что такое ракета -->
+  <div class="slide bg-what" id="s1">
+    <div class="slide-title" style="color:#4ECDC4;">🌍 Что такое ракета?</div>
+    <div class="slide-body" style="max-width:800px;">
+      Ракета — это <span class="highlight" style="color:#FFD93D;">очень быстрая машина</span>,<br>
+      которая умеет летать в <span class="highlight" style="color:#4ECDC4;">космос</span>!
+    </div>
+    <div class="panels" style="margin-top:28px;">
+      <div class="panel">
+        <span class="panel-icon">✈️</span>
+        <div class="panel-label" style="color:#4ECDC4;">Самолёт</div>
+        <div class="panel-desc">Летает в небе, дышит воздухом</div>
+      </div>
+      <div class="panel" style="border-color:rgba(255,215,61,0.5); background:rgba(255,215,61,0.08);">
+        <span class="panel-icon">🚀</span>
+        <div class="panel-label" style="color:#FFD93D;">Ракета</div>
+        <div class="panel-desc">Летит в космос, там нет воздуха — ей он не нужен!</div>
+      </div>
+      <div class="panel">
+        <span class="panel-icon">🛸</span>
+        <div class="panel-label" style="color:#A855F7;">Космос</div>
+        <div class="panel-desc">Там звёзды, планеты и невесомость!</div>
+      </div>
+    </div>
+    <div class="slide-body" style="margin-top:24px; font-size:clamp(1rem,2vw,1.5rem); opacity:0.8;">
+      Ракета летит, как <strong>воздушный шарик</strong>:<br>
+      сзади вылетает огонь — и она мчится вперёд! 💨
+    </div>
+  </div>
+
+  <!-- 2: Ступени -->
+  <div class="slide bg-stages" id="s2">
+    <div class="slide-title" style="color:#A855F7;">🔧 Ступени ракеты</div>
+    <div class="slide-body">
+      Ракета состоит из <span class="highlight" style="color:#A855F7;">нескольких частей — ступеней</span>.<br>
+      Каждая ступень — это бак с топливом и двигатель.
+    </div>
+
+    <div class="stages-wrap" style="margin-top:28px;">
+      <!-- Stage 3 (nose/payload) -->
+      <div class="stage-block">
+        <div class="stage-rect" style="width:80px; height:100px; background:linear-gradient(180deg,#E8EAF6,#9FA8DA); flex-direction:column; padding:8px; justify-content:flex-start;">
+          <div style="font-size:0.75rem; font-weight:800; color:#37474F;">ГОЛОВА</div>
+          <div style="font-size:1.6rem;">👨‍🚀</div>
+        </div>
+        <div class="stage-label" style="color:#B0BEC5;">Кабина<br>космонавтов</div>
+      </div>
+      <!-- Connector -->
+      <div style="width:4px; height:80px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
+      <!-- Stage 2 -->
+      <div class="stage-block">
+        <div class="stage-rect" style="width:90px; height:140px; background:linear-gradient(180deg,#7986CB,#3F51B5);">
+          <div style="writing-mode:vertical-rl; font-size:0.85rem; color:white;">2-я СТУПЕНЬ</div>
+        </div>
+        <div class="stage-label" style="color:#7986CB;">Вторая<br>ступень</div>
+      </div>
+      <!-- Connector -->
+      <div style="width:4px; height:80px; background:rgba(255,255,255,0.15); border-radius:2px; align-self:center;"></div>
+      <!-- Stage 1 -->
+      <div class="stage-block">
+        <div class="stage-rect" style="width:110px; height:180px; background:linear-gradient(180deg,#FF6B35,#E53935);">
+          <div style="writing-mode:vertical-rl; font-size:0.85rem; color:white;">1-я СТУПЕНЬ</div>
+        </div>
+        <div class="stage-label" style="color:#FF6B35;">Первая<br>ступень<br>(самая большая!)</div>
+      </div>
+    </div>
+
+    <div class="slide-body" style="margin-top:16px; font-size:clamp(0.95rem,1.8vw,1.4rem); opacity:0.85;">
+      Сначала летит <span style="color:#FF6B35; font-weight:900;">первая ступень</span> — она заканчивается и <strong>отпадает</strong>.<br>
+      Потом — <span style="color:#7986CB; font-weight:900;">вторая</span>! Ракета становится легче и летит быстрее! 🎉
+    </div>
+  </div>
+
+  <!-- 3: Топливо -->
+  <div class="slide bg-fuel" id="s3">
+    <div class="slide-title" style="color:#FF6B35;">⛽ Топливо</div>
+    <div class="slide-body">
+      Топливо — это <span class="highlight" style="color:#FF6B35;">«еда» для ракеты</span>.<br>
+      Оно горит и создаёт <strong>огненную струю</strong> сзади!
+    </div>
+
+    <div class="panels" style="margin-top:24px;">
+      <div class="panel">
+        <span class="panel-icon">🚗</span>
+        <div class="panel-label" style="color:#FFD93D;">Машина</div>
+        <div class="panel-desc">Ест бензин</div>
+      </div>
+      <div class="panel" style="border-color:rgba(255,107,53,0.5); background:rgba(255,107,53,0.08);">
+        <span class="panel-icon">🚀</span>
+        <div class="panel-label" style="color:#FF6B35;">Ракета</div>
+        <div class="panel-desc">Ест специальное<br>жидкое топливо<br>и <strong>жидкий кислород</strong></div>
+      </div>
+      <div class="panel">
+        <span class="panel-icon">🎈</span>
+        <div class="panel-label" style="color:#4ECDC4;">Принцип</div>
+        <div class="panel-desc">Как шарик:<br>газ вылетает назад — шарик летит вперёд!</div>
+      </div>
+    </div>
+
+    <div class="slide-body" style="margin-top:20px; font-size:clamp(1rem,2vw,1.5rem);">
+      Ракета везёт с собой <span style="color:#4ECDC4; font-weight:900;">огромные баки с топливом</span>.<br>
+      Оно занимает <span style="color:#FFD93D; font-weight:900;">90% от всей ракеты</span>! 🛢️
+    </div>
+  </div>
+
+  <!-- 4: Первая космическая скорость -->
+  <div class="slide bg-v1" id="s4">
+    <div class="slide-title" style="color:#4ECDC4;">🌐 Первая космическая скорость</div>
+    <div class="slide-body">
+      Чтобы <span class="highlight" style="color:#4ECDC4;">летать вокруг Земли</span> (как спутник),<br>
+      нужно разогнаться до невероятной скорости!
+    </div>
+
+    <div style="margin:24px auto 8px;">
+      <span class="big-number" style="color:#4ECDC4;">8 км/с</span>
+      <div style="font-size:clamp(1rem,2vw,1.5rem); font-weight:700; opacity:0.75; margin-top:6px;">
+        = 28 800 км/ч
+      </div>
+    </div>
+
+    <div class="speed-bar-wrap">
+      <div class="speed-bar-track">
+        <div class="speed-bar-fill" style="width:40%; background:linear-gradient(90deg,#1565C0,#4ECDC4); animation-delay:0.3s;">
+          🚀 8 км/с
+        </div>
+      </div>
+      <div class="speed-label">
+        <span>Пешком 0.005 км/с</span>
+        <span>Самолёт 0.25 км/с</span>
+        <span>🚀 8 км/с</span>
+      </div>
+    </div>
+
+    <div class="panels" style="margin-top:8px;">
+      <div class="panel">
+        <span class="panel-icon">🐾</span>
+        <div class="panel-label">Человек</div>
+        <div class="panel-desc">~5 км/ч</div>
+      </div>
+      <div class="panel">
+        <span class="panel-icon">✈️</span>
+        <div class="panel-label">Самолёт</div>
+        <div class="panel-desc">~900 км/ч</div>
+      </div>
+      <div class="panel" style="border-color:rgba(78,205,196,0.5); background:rgba(78,205,196,0.08);">
+        <span class="panel-icon">🛰️</span>
+        <div class="panel-label" style="color:#4ECDC4;">Спутник</div>
+        <div class="panel-desc" style="color:#4ECDC4;"><strong>28 800 км/ч!</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: Вторая космическая скорость -->
+  <div class="slide bg-v2" id="s5">
+    <div class="slide-title" style="color:#A855F7;">🪐 Вторая космическая скорость</div>
+    <div class="slide-body">
+      Чтобы <span class="highlight" style="color:#A855F7;">совсем улететь от Земли</span><br>
+      и отправиться к другим планетам —<br>
+      нужно ещё быстрее!
+    </div>
+
+    <div style="margin:20px auto 8px; display:flex; gap:40px; justify-content:center; align-items:flex-end; flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-size:clamp(1.5rem,4vw,3rem); font-weight:900; color:#4ECDC4;">8 км/с</div>
+        <div style="font-size:0.9rem; font-weight:700; opacity:0.6; margin-top:4px;">Лететь<br>вокруг Земли</div>
+      </div>
+      <div style="font-size:2rem; align-self:center;">➡️</div>
+      <div style="text-align:center;">
+        <span class="big-number" style="color:#A855F7; font-size:clamp(2.5rem,7vw,5.5rem);">11 км/с</span>
+        <div style="font-size:0.9rem; font-weight:700; opacity:0.6; margin-top:4px;">Улететь<br>от Земли!</div>
+      </div>
+    </div>
+
+    <div class="slide-body" style="margin-top:16px; font-size:clamp(1rem,2vw,1.5rem);">
+      Представь: Земля тебя «держит» как магнит.<br>
+      Чтобы вырваться — нужна <span style="color:#A855F7; font-weight:900;">скорость 40 000 км/ч!</span> 🪐✨
+    </div>
+
+    <div class="panels" style="margin-top:16px;">
+      <div class="panel" style="border-color:rgba(78,205,196,0.4);">
+        <span class="panel-icon">🌍➡️🌍</span>
+        <div class="panel-label" style="color:#4ECDC4;">8 км/с</div>
+        <div class="panel-desc">Орбита Земли<br>(МКС, спутники)</div>
+      </div>
+      <div class="panel" style="border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.08);">
+        <span class="panel-icon">🚀🪐</span>
+        <div class="panel-label" style="color:#A855F7;">11 км/с</div>
+        <div class="panel-desc">К Луне, Марсу<br>и другим планетам!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6: Управление -->
+  <div class="slide bg-control" id="s6">
+    <div class="slide-title" style="color:#6BCB77;">🕹️ Как управляется ракета?</div>
+    <div class="slide-body">
+      У ракеты нет руля, как у машины.<br>
+      Она поворачивает <span class="highlight" style="color:#6BCB77;">сам двигатель</span> в нужную сторону!
+    </div>
+
+    <div style="margin:24px auto; display:flex; gap:32px; justify-content:center; align-items:center; flex-wrap:wrap;">
+      <!-- Simple nozzle illustration -->
+      <svg width="140" height="180" viewBox="0 0 140 180">
+        <!-- Rocket body -->
+        <rect x="45" y="20" width="50" height="90" rx="10" fill="#7986CB"/>
+        <polygon points="70,0 45,25 95,25" fill="#E53935"/>
+        <!-- Nozzle (animated) -->
+        <g class="nozzle-diagram" style="transform-origin:70px 110px;">
+          <rect x="58" y="108" width="24" height="32" rx="6" fill="#455A64"/>
+          <polygon points="54,138 86,138 80,155 60,155" fill="#37474F"/>
+          <!-- Flame -->
+          <ellipse cx="70" cy="160" rx="9" ry="14" fill="#FF6B35" opacity="0.9"/>
+          <ellipse cx="70" cy="163" rx="6" ry="10" fill="#FFD93D"/>
+        </g>
+        <!-- Arrows showing tilt -->
+        <text x="10" y="155" font-size="22" fill="#6BCB77" opacity="0.8">↙️</text>
+        <text x="104" y="155" font-size="22" fill="#FF6B35" opacity="0.8">↘️</text>
+      </svg>
+
+      <div style="text-align:left; max-width:400px;">
+        <div class="panels" style="flex-direction:column; gap:12px;">
+          <div class="panel" style="text-align:left; max-width:none;">
+            <span class="panel-icon">↙️</span>
+            <div class="panel-label" style="color:#6BCB77;">Двигатель влево</div>
+            <div class="panel-desc">→ ракета летит вправо</div>
+          </div>
+          <div class="panel" style="text-align:left; max-width:none;">
+            <span class="panel-icon">↘️</span>
+            <div class="panel-label" style="color:#FF6B35;">Двигатель вправо</div>
+            <div class="panel-desc">→ ракета летит влево</div>
+          </div>
+          <div class="panel" style="text-align:left; max-width:none;">
+            <span class="panel-icon">🖥️</span>
+            <div class="panel-label" style="color:#FFD93D;">Компьютер</div>
+            <div class="panel-desc">Управляет всем автоматически!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7: Приземление -->
+  <div class="slide bg-land" id="s7">
+    <div class="slide-title" style="color:#FFD93D;">🎯 Как приземляется ракета?</div>
+    <div class="slide-body">
+      Есть <span class="highlight" style="color:#FFD93D;">два способа</span> вернуться домой!
+    </div>
+
+    <div class="panels" style="margin-top:24px;">
+      <div class="panel" style="border-color:rgba(255,217,61,0.4); background:rgba(255,217,61,0.06);">
+        <span class="panel-icon">🪂</span>
+        <div class="panel-label" style="color:#FFD93D;">Парашют</div>
+        <div class="panel-desc">
+          Капсула с космонавтами<br>раскрывает парашют<br>и мягко спускается!<br>
+          <br>
+          Так возвращались<br><strong>советские космонавты</strong>! 🇷🇺
+        </div>
+      </div>
+
+      <div class="panel" style="border-color:rgba(255,107,53,0.4); background:rgba(255,107,53,0.06);">
+        <span class="panel-icon">🦵</span>
+        <div class="panel-label" style="color:#FF6B35;">На ногах</div>
+        <div class="panel-desc">
+          Ступень включает двигатели<br>и садится обратно на ножки!<br>
+          <br>
+          Так делает ракета<br><strong>Falcon 9</strong> от SpaceX! 🤩
+        </div>
+      </div>
+
+      <div class="panel" style="border-color:rgba(78,205,196,0.4); background:rgba(78,205,196,0.06);">
+        <span class="panel-icon">✈️</span>
+        <div class="panel-label" style="color:#4ECDC4;">Как самолёт</div>
+        <div class="panel-desc">
+          Шаттл планировал<br>и садился на<br>взлётно-посадочную<br>полосу!
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-body" style="margin-top:20px; font-size:clamp(1rem,2vw,1.4rem); opacity:0.8;">
+      Главное — вернуть космонавтов на Землю <strong>живыми и здоровыми!</strong> ❤️
+    </div>
+  </div>
+
+  <!-- 8: Конец -->
+  <div class="slide bg-end" id="s8">
+    <div style="font-size:5rem; margin-bottom:16px; animation:hover 3s infinite ease-in-out;">🚀</div>
+    <div class="slide-title" style="color:#FFD93D; font-size:clamp(2.5rem,6vw,5rem);">
+      Вы — будущие<br>космонавты!
+    </div>
+    <div class="slide-body" style="margin:20px auto; max-width:700px; opacity:0.9;">
+      Сегодня вы узнали:<br>
+    </div>
+    <div class="panels" style="margin-top:8px; flex-wrap:wrap; max-width:850px;">
+      <div class="panel" style="flex:1; min-width:130px; padding:14px;">
+        <span class="panel-icon" style="font-size:2rem;">🔧</span>
+        <div class="panel-label" style="font-size:0.9rem;">Ступени</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:130px; padding:14px;">
+        <span class="panel-icon" style="font-size:2rem;">⛽</span>
+        <div class="panel-label" style="font-size:0.9rem;">Топливо</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:130px; padding:14px;">
+        <span class="panel-icon" style="font-size:2rem;">🌐</span>
+        <div class="panel-label" style="font-size:0.9rem;">1-я скорость</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:130px; padding:14px;">
+        <span class="panel-icon" style="font-size:2rem;">🪐</span>
+        <div class="panel-label" style="font-size:0.9rem;">2-я скорость</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:130px; padding:14px;">
+        <span class="panel-icon" style="font-size:2rem;">🕹️</span>
+        <div class="panel-label" style="font-size:0.9rem;">Управление</div>
+      </div>
+      <div class="panel" style="flex:1; min-width:130px; padding:14px;">
+        <span class="panel-icon" style="font-size:2rem;">🎯</span>
+        <div class="panel-label" style="font-size:0.9rem;">Приземление</div>
+      </div>
+    </div>
+    <div class="slide-title" style="color:#FF6B9D; font-size:clamp(2rem,4vw,3rem); margin-top:24px;">
+      До новых открытий! ⭐
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">◀</button>
+  <div id="dots"></div>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">▶</button>
+</div>
+
+<div id="slide-counter"></div>
+
+<script>
+// ── Starfield ──
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 220; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.8 + 0.3,
+        a: Math.random(),
+        da: (Math.random() * 0.008 + 0.002) * (Math.random() < 0.5 ? 1 : -1),
+        minA: Math.random() * 0.1,
+        maxA: Math.random() * 0.5 + 0.5,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a += s.da;
+      if (s.a > s.maxA || s.a < s.minA) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${Math.max(0, s.a)})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize();
+  initStars();
+  draw();
+})();
+
+// ── Slides ──
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+let animating = false;
+
+function buildDots() {
+  const container = document.getElementById('dots');
+  container.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i === 0 ? ' active' : '');
+    btn.addEventListener('click', () => goTo(i));
+    container.appendChild(btn);
+  }
+}
+
+function updateDots() {
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+  document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('prevBtn').style.opacity = current === 0 ? '0.3' : '1';
+  document.getElementById('nextBtn').style.opacity = current === total - 1 ? '0.3' : '1';
+}
+
+function goTo(index) {
+  if (animating || index === current || index < 0 || index >= total) return;
+  animating = true;
+
+  const from = slides[current];
+  const to = slides[index];
+  const dir = index > current ? 1 : -1;
+
+  from.classList.remove('active');
+  from.classList.add('exit');
+  to.style.transform = `translateX(${dir * 100}%)`;
+  to.style.opacity = '0';
+  to.classList.add('active');
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      to.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+      to.style.transform = 'translateX(0)';
+      to.style.opacity = '1';
+    });
+  });
+
+  setTimeout(() => {
+    from.classList.remove('exit');
+    from.style.transform = '';
+    from.style.opacity = '';
+    from.style.transition = '';
+    to.style.transition = '';
+    current = index;
+    animating = false;
+    updateDots();
+  }, 650);
+
+  current = index;
+  updateDots();
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next >= 0 && next < total) goTo(next);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault(); navigate(1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault(); navigate(-1);
+  }
+});
+
+// Touch / swipe
+let touchX = null;
+document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1);
+  touchX = null;
+});
+
+// Click anywhere to advance (but not on nav)
+document.getElementById('slides').addEventListener('click', e => {
+  if (!e.target.closest('#nav')) navigate(1);
+});
+
+buildDots();
+updateDots();
+
+// Animate speed bars when slide becomes active
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    if (m.target.classList.contains('active')) {
+      const bars = m.target.querySelectorAll('.speed-bar-fill');
+      bars.forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            bar.style.transition = 'width 1.2s ease';
+            bar.style.width = w;
+          });
+        });
+      });
+    }
+  });
+});
+
+slides.forEach(s => observer.observe(s, { attributes: true, attributeFilter: ['class'] }));
+</script>
+</body>
+</html>
