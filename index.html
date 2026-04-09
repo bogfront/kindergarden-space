@@ -282,7 +282,7 @@
   /* ── Navigation ── */
   #nav {
     position: fixed;
-    bottom: 28px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -290,23 +290,6 @@
     align-items: center;
     gap: 14px;
   }
-  .nav-btn {
-    background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.25);
-    color: white;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, transform 0.15s;
-    backdrop-filter: blur(8px);
-  }
-  .nav-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.1); }
-  .nav-btn:active { transform: scale(0.95); }
 
   #dots {
     display: flex;
@@ -738,9 +721,7 @@
 
 <!-- Navigation -->
 <div id="nav">
-  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">◀</button>
   <div id="dots"></div>
-  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">▶</button>
 </div>
 
 <div id="slide-counter"></div>
@@ -813,8 +794,6 @@ function updateDots() {
     d.classList.toggle('active', i === current);
   });
   document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
-  document.getElementById('prevBtn').style.opacity = current === 0 ? '0.3' : '1';
-  document.getElementById('nextBtn').style.opacity = current === total - 1 ? '0.3' : '1';
 }
 
 function goTo(index) {
